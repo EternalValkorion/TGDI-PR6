@@ -29,7 +29,8 @@ for(int cycle = 0; cycle < 11; cycle++)
         // Printing Results
         for(int i = 0; i < 12; i++)
         {
-                float temp = buffer[i];
+                int readshift = buffer[0] << 8 | buffer[1];
+                float temp = readshift / 256;
                 printf("Temperature = %.3f\r\n",temp);
 
         }
