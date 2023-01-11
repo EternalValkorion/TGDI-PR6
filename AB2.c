@@ -1,3 +1,35 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <bcm2835.h>
+
+
+int main()
+{
+
+char buffer[12];
+int count = 1;
+float minustemp = 250;
+// Initialisation and configuration of used pins.
+bcm2835_init();
+bcm2835_i2c_begin();
+
+// Baudrate configuration
+bcm2835_i2c_setClockDivider(2500);
+
+// Address of corresponding Temp sensor.
+bcm2835_i2c_setSlaveAddress(0x48);
+
+//Selection of gpio pins for activation of LED on successfull Print of Temperatures
+bcm2835_gpio_fsel(18, 0x01);
+
+        //Shift Values to MSB and Printing Results
+        for(int i = 0; i < 200; i++)
+        {
+                for(int cycle = 0; cycle < 11; cycle++)
+                {
+                        bcm2835_i2c_read(buffer, 2);
+                }
+
 
                 float readshift = buffer[0] << 8 | buffer[1];
                 float temp = readshift / 256;
